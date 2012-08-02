@@ -80,6 +80,7 @@ var main = function(args) {
 		var filepath = anon[i];
 		var err = doLint(filepath);
 		err = formatOutput(err, filepath);
+		errors = errors.concat("----" + anon[i] + "----\n");
 		errors = errors.concat(err);
 	}
 	var pass = errors.length === 0;
@@ -121,7 +122,7 @@ formatOutput = function(errors, filepath) {
 	for(i = 0; i < errors.length; i += 1) {
 		var error = errors[i];
 		if(error) { // last item might be null (if linting was aborted)
-			var line = [filepath, error.line, error.character, error.reason].
+			var line = [error.line, error.character, error.reason].
 				join(":");
 			lines.push(line);
 		}
